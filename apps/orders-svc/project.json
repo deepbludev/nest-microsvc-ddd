@@ -3,14 +3,29 @@
   "sourceRoot": "apps/orders-svc/src",
   "projectType": "application",
   "targets": {
+    "develop": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "commands": [
+          "docker-compose up"
+        ]
+      }
+    },
+    "devbuild": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "commands": [
+          "docker-compose up --build"
+        ]
+      }
+    },
     "deploy": {
       "executor": "@nrwl/workspace:run-commands",
       "options": {
         "commands": [
-          "nx build orders-svc",
-          "docker build -f ./apps/orders-svc/Dockerfile . -t orders-svc"
-        ],
-        "parallel": false
+          "nx build orders-svc --configuration=production --with-deps --skip-nx-cache",
+          "docker build -f ./apps/orders-svc/Dockerfile . -t orders-svc --target production"
+        ]
       }
     },
     "build": {
