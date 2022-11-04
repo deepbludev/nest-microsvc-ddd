@@ -18,5 +18,6 @@ COPY . .
 RUN yarn global add @nrwl/cli
 RUN yarn install
 RUN yarn nx run orders-svc:build:production
+RUN yarn nx serve orders-svc
 
 EXPOSE 3333
