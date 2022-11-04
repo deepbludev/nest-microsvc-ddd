@@ -17,7 +17,7 @@ describe('AppService', () => {
     it('should return "Welcome to orders-svc!"', () => {
       expect(service.getData()).toEqual({
         message:
-          'Welcome to orders-svc from Docker with volumes and everything!',
+          'Welcome to orders-svc from Docker with nginx, volumes and everything!',
       })
     })
   })

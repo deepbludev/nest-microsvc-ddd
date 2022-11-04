@@ -8,7 +8,9 @@ services:
       target: development
     command: yarn nx serve orders-svc
     ports:
-      - '3333:3333'
+      - 3333:3333
+    depends_on:
+      - rabbitmq
     volumes:
       - .:/workspace
 
@@ -17,4 +19,16 @@ services:
     build:
       context: ./.nginx
     ports:
-      - "80:80"
+      - 80:80
+    depends_on:
+      - rabbitmq
+      - orders-svc
+  rabbitmq:
+    container_name: rabbitmq
+    image: rabbitmq:3.8-management-alpine
+    environment:
+      - RABBITMQ_DEFAULT_USER=myuser
+      - RABBITMQ_DEFAULT_PASS=mypassword
+    ports:
+      - 5672:5672
+      - 15672:15672

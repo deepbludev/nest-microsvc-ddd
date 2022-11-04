@@ -18,7 +18,7 @@ describe('AppController', () => {
       const appController = app.get<AppController>(AppController)
       expect(appController.getData()).toEqual({
         message:
-          'Welcome to orders-svc from Docker with volumes and everything!',
+          'Welcome to orders-svc from Docker with nginx, volumes and everything!',
       })
     })
   })
