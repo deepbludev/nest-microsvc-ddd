@@ -6,9 +6,8 @@
     "start": "nx serve",
     "build": "nx build",
     "test": "nx test",
-    "docker:dev": "docker-compose up",
-    "docker:dev:build": "docker-compose up --build",
-    "docker:prod": "docker-compose -f docker-compose.prod.yml up --build"
+    "docker": "docker-compose up",
+    "docker:build": "docker-compose up --build"
   },
   "private": true,
   "dependencies": {

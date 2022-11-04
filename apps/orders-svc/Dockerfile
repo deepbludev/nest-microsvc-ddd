@@ -1,9 +1,12 @@
-FROM node:lts-alpine
-WORKDIR /usr/src/app
-COPY ./dist/apps/orders-svc .
-ENV PORT=3333
-EXPOSE ${PORT}
-RUN npm install --production
-# dependencies that nestjs needs
-RUN npm install reflect-metadata tslib rxjs @nestjs/platform-express
-CMD node ./main.js
+FROM node:14.17.3-alpine
+
+WORKDIR /workspace
+
+COPY . .
+
+RUN ["npm", "i", "-g", "@nrwl/cli"]
+RUN ["npm", "i"]
+
+EXPOSE 3333
+
+ENTRYPOINT ["npx","nx","serve","orders-svc"]

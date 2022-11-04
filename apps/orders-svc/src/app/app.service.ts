@@ -9,7 +9,8 @@ export class AppService {
     })
 
     const response = {
-      message: 'Welcome to orders-svc from Docker with volumes and everything!',
+      message:
+        'Welcome to orders-svc from Docker with nginx, volumes and everything!',
     }
 
     const { success } = schema.safeParse(response)
