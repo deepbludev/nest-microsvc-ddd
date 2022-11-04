@@ -1,5 +1,5 @@
 FROM node:lts-alpine
-WORKDIR /app
+WORKDIR /usr/src/app
 COPY ./dist/apps/orders-svc .
 ENV PORT=3333
 EXPOSE ${PORT}

@@ -3,4 +3,10 @@ services:
   orders-svc:
     image: orders-svc
     ports:
-      - '8080:3333'
+      - '3333:3333'
+  nginx:
+    restart: always
+    build:
+      context: ./.nginx
+    ports:
+      - "80:80"
