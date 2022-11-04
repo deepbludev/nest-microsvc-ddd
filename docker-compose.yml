@@ -1,0 +1,6 @@
+version: '3.8'
+services:
+  orders-svc:
+    image: orders-svc
+    ports:
+      - '8080:3333'
