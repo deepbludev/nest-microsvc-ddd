@@ -4,19 +4,14 @@
     "outDir": "../../dist/out-tsc",
     "module": "commonjs",
     "types": [
+      "jest",
       "node"
-    ],
-    "emitDecoratorMetadata": true,
-    "target": "es2015"
+    ]
   },
-  "exclude": [
-    "jest.config.ts",
-    "**/*.spec.ts",
-    "**/*.test.ts",
+  "include": [
+    "__test__/jest.e2e.config.ts",
     "**/*.e2e.ts",
     "**/__mocks__/**/*.ts",
-  ],
-  "include": [
-    "**/*.ts"
+    "**/*.d.ts"
   ]
 }

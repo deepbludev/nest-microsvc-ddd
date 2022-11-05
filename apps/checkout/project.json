@@ -6,32 +6,40 @@
     "develop": {
       "executor": "@nrwl/workspace:run-commands",
       "options": {
-        "commands": ["docker-compose up"]
+        "commands": [
+          "docker-compose up"
+        ]
       }
     },
     "devbuild": {
       "executor": "@nrwl/workspace:run-commands",
       "options": {
-        "commands": ["docker-compose up --build"]
+        "commands": [
+          "docker-compose up --build"
+        ]
       }
     },
     "deploy": {
       "executor": "@nrwl/workspace:run-commands",
       "options": {
         "commands": [
-          "nx build orders-svc --configuration=production --with-deps --skip-nx-cache",
-          "docker build -f ./apps/checkout/Dockerfile . -t orders-svc --target production"
+          "nx build checkout --configuration=production --with-deps --skip-nx-cache",
+          "docker build -f ./apps/checkout/Dockerfile . -t checkout --target production"
         ]
       }
     },
     "build": {
       "executor": "@nrwl/node:webpack",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "options": {
         "outputPath": "dist/apps/checkout",
         "main": "apps/checkout/src/main.ts",
         "tsConfig": "apps/checkout/tsconfig.app.json",
-        "assets": ["apps/checkout/src/assets"],
+        "assets": [
+          "apps/checkout/src/assets"
+        ],
         "generatePackageJson": true
       },
       "configurations": {
@@ -56,16 +64,29 @@
     },
     "lint": {
       "executor": "@nrwl/linter:eslint",
-      "outputs": ["{options.outputFile}"],
+      "outputs": [
+        "{options.outputFile}"
+      ],
       "options": {
-        "lintFilePatterns": ["apps/checkout/**/*.ts"]
+        "lintFilePatterns": [
+          "apps/checkout/**/*.ts"
+        ]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/apps/checkout"],
+      "outputs": [
+        "coverage/apps/checkout"
+      ],
       "options": {
         "jestConfig": "apps/checkout/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "e2e": {
+      "executor": "@nrwl/jest:jest",
+      "options": {
+        "jestConfig": "apps/checkout/__test__/jest.e2e.config.ts",
         "passWithNoTests": true
       }
     }
