@@ -21,4 +21,4 @@ RUN yarn install
 
 EXPOSE 3333
 
-CMD ["node", "dist/apps/orders-svc/main"]
+CMD ["node", "dist/apps/checkout/main"]

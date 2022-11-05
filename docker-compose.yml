@@ -1,12 +1,12 @@
 version: '3.8'
 services:
-  orders-svc:
-    container_name: orders-svc
+  checkout:
+    container_name: checkout
     build:
       context: .
-      dockerfile: ./apps/orders-svc/Dockerfile
+      dockerfile: ./apps/checkout/Dockerfile
       target: development
-    command: yarn nx serve orders-svc
+    command: yarn nx serve checkout
     ports:
       - 3333:3333
     depends_on:
@@ -22,7 +22,7 @@ services:
       - 80:80
     depends_on:
       - rabbitmq
-      - orders-svc
+      - checkout
   rabbitmq:
     container_name: rabbitmq
     image: rabbitmq:3.8-management-alpine
