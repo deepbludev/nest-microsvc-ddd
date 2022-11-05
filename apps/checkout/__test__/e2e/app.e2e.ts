@@ -19,4 +19,28 @@ describe('AppController (e2e)', () => {
       })
     })
   })
+
+  describe('/orders', () => {
+    describe('POST', () => {
+      describe('when body is valid', () => {
+        it('returns http status 201 CREATED', () => {
+          const order = {
+            clientId: '1',
+            date: new Date().toJSON(),
+            address: '1 Main Avenue, New York',
+            products: [
+              { id: '1', quantity: '1', cost: '10.00' },
+              { id: '2', quantity: '2', cost: '20.00' },
+            ],
+          }
+
+          return e2e
+            .request()
+            .post('/orders')
+            .send(order)
+            .expect(HttpStatus.CREATED)
+        })
+      })
+    })
+  })
 })
