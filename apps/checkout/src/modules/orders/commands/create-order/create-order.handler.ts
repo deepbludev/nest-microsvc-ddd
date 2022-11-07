@@ -7,7 +7,7 @@ import {
 import { Queue } from '@ecommerce/shared/infrastructure'
 import { Inject, Injectable } from '@nestjs/common'
 import { ClientProxy } from '@nestjs/microservices'
-import { CreateOrder } from '../create-order.command'
+import { CreateOrder } from './create-order.command'
 
 @Injectable()
 @commandHandler(CreateOrder)

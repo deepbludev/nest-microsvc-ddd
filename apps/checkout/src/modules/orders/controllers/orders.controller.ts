@@ -1,7 +1,7 @@
 import { Body, Controller, HttpStatus, Post } from '@nestjs/common'
 import { ICommandBus } from '@deepblu/ddd'
 import { CreateOrderDTO } from '@ecommerce/checkout/orders/domain'
-import { CreateOrder } from '../commands/create-order.command'
+import { CreateOrder } from '../commands/create-order/create-order.command'
 
 @Controller('orders')
 export class OrdersController {
