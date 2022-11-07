@@ -15,14 +15,9 @@ services:
       - .:/workspace
 
   rabbitmq:
-    container_name: rabbitmq
-    image: rabbitmq:3.8-management-alpine
-    environment:
-      - RABBITMQ_DEFAULT_USER=myuser
-      - RABBITMQ_DEFAULT_PASS=mypassword
+    image: rabbitmq
     ports:
-      - 5672:5672
-      - 15672:15672
+      - '5672:5672'
 
   nginx:
     restart: always
