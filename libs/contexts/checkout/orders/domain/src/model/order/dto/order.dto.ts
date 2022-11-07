@@ -1,21 +1,32 @@
-import { string, z } from 'zod'
+import { Type } from 'class-transformer'
+import {
+  IsDate,
+  IsNotEmpty,
+  IsNumber,
+  IsPositive,
+  IsString,
+  ValidateNested,
+} from 'class-validator'
+import { ProductDTO } from './product.dto'
 
-export const OrderSchema = z.object({
-  id: string().uuid({ message: 'Order ID must be a valid UUID' }),
-  clientId: z
-    .number()
-    .positive({ message: 'Client ID must be a valid number id' }),
-  date: z.date(),
-  address: z.string().min(1, { message: 'Address must be a non-empty string' }),
-  products: z.array(
-    z.object({
-      id: z.string().uuid({ message: 'Product ID must be a valid UUID' }),
-      quantity: z
-        .number()
-        .positive({ message: 'Quantity must be a positive number' }),
-      cost: z.number().positive({ message: 'Cost must be a positive number' }),
-    })
-  ),
-})
+export class OrderDTO {
+  @IsNumber()
+  @IsPositive()
+  id: number
 
-export type OrderDTO = z.infer<typeof OrderSchema>
+  @IsNumber()
+  @IsPositive()
+  clientId: number
+
+  @Type(() => Date)
+  @IsDate()
+  date: Date
+
+  @IsString()
+  @IsNotEmpty()
+  address: string
+
+  @ValidateNested({ each: true })
+  @Type(() => ProductDTO)
+  products: ProductDTO[]
+}
