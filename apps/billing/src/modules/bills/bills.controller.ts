@@ -12,7 +12,10 @@ export class BillsController {
     @Payload() order: CreateOrderDTO,
     @Ctx() context: RmqContext
   ) {
-    console.log('RECEIVED: ', { event: context.getPattern(), payload: order })
-    this.rmqService.ack(context)
+    console.log('RECEIVED in billing: ', {
+      event: context.getPattern(),
+      payload: order,
+    })
+    // this.rmqService.ack(context)
   }
 }
