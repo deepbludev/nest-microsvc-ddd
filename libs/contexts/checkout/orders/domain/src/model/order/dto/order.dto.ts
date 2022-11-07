@@ -2,21 +2,18 @@ import { Type } from 'class-transformer'
 import {
   IsDate,
   IsNotEmpty,
-  IsNumber,
-  IsPositive,
   IsString,
+  IsUUID,
   ValidateNested,
 } from 'class-validator'
 import { ProductDTO } from './product.dto'
 
 export class OrderDTO {
-  @IsNumber()
-  @IsPositive()
-  id: number
+  @IsUUID()
+  id: string
 
-  @IsNumber()
-  @IsPositive()
-  clientId: number
+  @IsUUID()
+  clientId: string
 
   @Type(() => Date)
   @IsDate()
