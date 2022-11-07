@@ -5,7 +5,7 @@ import { BillingBoundedContext } from './bounded-context/billing.module'
 async function bootstrap() {
   const app = await NestFactory.create(BillingBoundedContext)
   const rmqService = app.get<RmqService>(RmqService)
-  app.connectMicroservice(rmqService.getOptions(Queue.BILLING))
+  app.connectMicroservice(rmqService.getOptions(Queue.CHECKOUT))
   await app.startAllMicroservices()
 }
 

@@ -8,15 +8,13 @@ import { CreateOrderHandler } from './commands/create-order/create-order.handler
   imports: [
     ConfigModule,
     CqrsModule.register({
-      imports: [
-        RmqModule.register({ names: [Queue.BILLING, Queue.LOGISTICS] }),
-      ],
+      imports: [RmqModule.register({ names: [Queue.CHECKOUT] })],
       commandHandlers: [CreateOrderHandler],
       // queryHandlers: [],
       // eventSubscribers: [],
     }),
     RmqModule.register({
-      names: [Queue.CHECKOUT, Queue.BILLING, Queue.LOGISTICS],
+      names: [Queue.CHECKOUT],
     }),
   ],
   controllers: [OrdersController],
