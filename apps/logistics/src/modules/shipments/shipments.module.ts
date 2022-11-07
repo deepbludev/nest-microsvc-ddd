@@ -2,10 +2,10 @@ import { RmqModule } from '@ecommerce/shared/infrastructure'
 import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
 
-import { BillsController } from './bills.controller'
+import { ShipmentsController } from './shipments.controller'
 
 @Module({
   imports: [ConfigModule, RmqModule],
-  controllers: [BillsController],
+  controllers: [ShipmentsController],
 })
-export class BillsModule {}
+export class ShipmentsModule {}

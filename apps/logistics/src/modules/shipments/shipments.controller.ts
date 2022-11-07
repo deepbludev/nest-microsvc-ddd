@@ -4,7 +4,7 @@ import { RmqService } from '@ecommerce/shared/infrastructure'
 import { CreateOrderDTO } from '@ecommerce/checkout/orders/domain'
 
 @Controller()
-export class BillsController {
+export class ShipmentsController {
   constructor(private readonly rmqService: RmqService) {}
 
   @EventPattern('ecommerce.checkout.orders.order_created')
@@ -12,7 +12,7 @@ export class BillsController {
     @Payload() order: CreateOrderDTO,
     @Ctx() context: RmqContext
   ) {
-    console.log('RECEIVED in billing: ', {
+    console.log('RECEIVED in logistics: ', {
       event: context.getPattern(),
     })
     this.rmqService.ack(context)

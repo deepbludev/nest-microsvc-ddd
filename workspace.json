@@ -5,6 +5,7 @@
     "billing": "apps/billing",
     "checkout": "apps/checkout",
     "contexts-checkout-orders-domain": "libs/contexts/checkout/orders/domain",
-    "contexts-shared-infrastructure": "libs/contexts/shared/infrastructure"
+    "contexts-shared-infrastructure": "libs/contexts/shared/infrastructure",
+    "logistics": "apps/logistics"
   }
 }

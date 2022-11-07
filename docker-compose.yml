@@ -10,7 +10,6 @@ services:
     ports:
       - 3333:3333
     depends_on:
-      - billing
       - rabbitmq
     volumes:
       - .:/workspace
@@ -23,6 +22,19 @@ services:
       dockerfile: ./apps/billing/Dockerfile
       target: development
     command: yarn nx serve billing
+    depends_on:
+      - rabbitmq
+    volumes:
+      - .:/workspace
+      - /workspace/node_modules
+
+  logistics:
+    container_name: logistics
+    build:
+      context: .
+      dockerfile: ./apps/logistics/Dockerfile
+      target: development
+    command: yarn nx serve logistics
     depends_on:
       - rabbitmq
     volumes:

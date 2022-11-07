@@ -24,6 +24,7 @@ export class CreateOrderHandler extends ICommandHandler<CreateOrder> {
         'ecommerce.checkout.orders.order_created',
         payload
       )
+      console.log('Emmiting from checkout')
     } catch (error) {
       return Result.fail(error)
     }

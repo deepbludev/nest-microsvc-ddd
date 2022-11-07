@@ -3,9 +3,7 @@ import { ICommandBus } from '@deepblu/ddd'
 import { CreateOrderDTO } from '@ecommerce/checkout/orders/domain'
 import { CreateOrder } from '../commands/create-order/create-order.command'
 import { RmqService } from '@ecommerce/shared/infrastructure'
-import { Ctx, EventPattern, Payload, RmqContext } from '@nestjs/microservices'
 
-let counter = 0
 @Controller('orders')
 export class OrdersController {
   constructor(
@@ -26,18 +24,5 @@ export class OrdersController {
       status: 'Order created successfully',
       data: { id: dto.id },
     }
-  }
-
-  @EventPattern('ecommerce.checkout.orders.order_created')
-  async handleOrderCreated(
-    @Payload() order: CreateOrderDTO,
-    @Ctx() context: RmqContext
-  ) {
-    counter++
-    console.log('RECEIVED in billing: ', {
-      event: context.getPattern(),
-      counter,
-    })
-    this.rmqService.ack(context)
   }
 }
