@@ -1,6 +1,6 @@
-import { createOrderStub } from '@ecommerce/checkout/orders/domain'
 import { HttpStatus } from '@nestjs/common'
 import { Test, TestingModule } from '@nestjs/testing'
+import { createOrderStub } from '@ecommerce/checkout/orders/domain'
 import { OrdersController } from './orders.controller'
 
 describe('OrdersController', () => {
