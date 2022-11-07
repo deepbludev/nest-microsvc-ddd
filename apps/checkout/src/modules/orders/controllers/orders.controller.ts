@@ -1,24 +1,20 @@
 import { Body, Controller, HttpStatus, Inject, Post } from '@nestjs/common'
 import { ClientProxy } from '@nestjs/microservices'
+import { ICommandBus } from '@deepblu/ddd'
 import { CreateOrderDTO } from '@ecommerce/checkout/orders/domain'
-import { Queue } from '@ecommerce/shared/infrastructure'
+import { CreateOrder } from '../commands/create-order.command'
 
 @Controller('orders')
 export class OrdersController {
-  constructor(
-    @Inject(Queue.BILLING) private readonly billingClient: ClientProxy,
-    @Inject(Queue.LOGISTICS) private readonly logisticsClient: ClientProxy
-  ) {}
+  constructor(private readonly commandbus: ICommandBus) {}
   @Post()
   async create(@Body() dto: CreateOrderDTO) {
-    // TODO: validate dto with pipe and send command to commandbus
-    // const response = await this.commandbus.dispatch(CreateTransaction.with(dto))
-    // if (response.isOk) {}
-
-    const clients = [this.billingClient]
-    clients.map(client => {
-      client.emit('ecommerce.checkout.orders.order_created', dto)
-    })
+    const response = await this.commandbus.dispatch(CreateOrder.with(dto))
+    if (response.isFail)
+      return {
+        status: HttpStatus.BAD_REQUEST,
+        message: response.error,
+      }
 
     return {
       statusCode: HttpStatus.CREATED,

@@ -14,6 +14,7 @@ services:
       - rabbitmq
     volumes:
       - .:/workspace
+      - /workspace/node_modules
 
   billing:
     container_name: billing
@@ -26,6 +27,7 @@ services:
       - rabbitmq
     volumes:
       - .:/workspace
+      - /workspace/node_modules
 
   rabbitmq:
     image: rabbitmq

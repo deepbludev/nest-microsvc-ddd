@@ -19,6 +19,4 @@ COPY . .
 RUN yarn global add @nrwl/cli
 RUN yarn install
 
-EXPOSE 3333
-
 CMD ["node", "dist/apps/billing/main"]
