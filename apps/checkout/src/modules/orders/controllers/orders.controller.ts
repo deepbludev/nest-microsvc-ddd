@@ -5,6 +5,7 @@ import { CreateOrder } from '../commands/create-order/create-order.command'
 import { RmqService } from '@ecommerce/shared/infrastructure'
 import { Ctx, EventPattern, Payload, RmqContext } from '@nestjs/microservices'
 
+let counter = 0
 @Controller('orders')
 export class OrdersController {
   constructor(
@@ -32,10 +33,11 @@ export class OrdersController {
     @Payload() order: CreateOrderDTO,
     @Ctx() context: RmqContext
   ) {
-    console.log('RECEIVED in checkout: ', {
+    counter++
+    console.log('RECEIVED in billing: ', {
       event: context.getPattern(),
-      payload: order,
+      counter,
     })
-    // this.rmqService.ack(context)
+    this.rmqService.ack(context)
   }
 }
