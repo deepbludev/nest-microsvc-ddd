@@ -25,6 +25,7 @@ describe('AppController (e2e)', () => {
       describe('when body is valid', () => {
         it('returns http status 201 CREATED', () => {
           const order = {
+            id: '88cc384c-eb13-4eee-af43-9f64c36f9e99',
             clientId: '1',
             date: new Date().toJSON(),
             address: '1 Main Avenue, New York',
@@ -39,6 +40,11 @@ describe('AppController (e2e)', () => {
             .post('/orders')
             .send(order)
             .expect(HttpStatus.CREATED)
+            .expect({
+              statusCode: HttpStatus.CREATED,
+              status: 'Order created successfully',
+              data: { id: order.id },
+            })
         })
       })
     })

@@ -1,24 +1,16 @@
+import { createOrderStub } from '@ecommerce/checkout/orders/domain'
 import { HttpStatus } from '@nestjs/common'
 import { Test, TestingModule } from '@nestjs/testing'
 import { OrdersController } from './orders.controller'
 
 describe('OrdersController', () => {
   let controller: OrdersController
-
-  const order = {
-    id: '1',
-    clientId: '1',
-    date: new Date().toJSON(),
-    address: '1 Main Avenue, New York',
-    products: [
-      { id: '1', quantity: '1', cost: '10.00' },
-      { id: '2', quantity: '2', cost: '20.00' },
-    ],
-  }
+  const order = createOrderStub()
 
   const response = {
     statusCode: HttpStatus.CREATED,
-    status: 'Transaction created successfully',
+    status: 'Order created successfully',
+    data: { id: order.id },
   }
 
   beforeEach(async () => {

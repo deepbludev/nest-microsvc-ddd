@@ -1,0 +1,34 @@
+{
+  "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/contexts/checkout/orders/domain/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/contexts/checkout/orders/domain",
+        "tsConfig": "libs/contexts/checkout/orders/domain/tsconfig.lib.json",
+        "packageJson": "libs/contexts/checkout/orders/domain/package.json",
+        "main": "libs/contexts/checkout/orders/domain/src/index.ts",
+        "assets": ["libs/contexts/checkout/orders/domain/*.md"]
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/contexts/checkout/orders/domain/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/contexts/checkout/orders/domain"],
+      "options": {
+        "jestConfig": "libs/contexts/checkout/orders/domain/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

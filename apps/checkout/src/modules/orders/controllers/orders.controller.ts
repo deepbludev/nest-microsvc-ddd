@@ -1,14 +1,18 @@
-import { Body, Controller, HttpStatus } from '@nestjs/common'
+import { Body, Controller, HttpStatus, Post } from '@nestjs/common'
+import { CreateOrderDTO } from '@ecommerce/checkout/orders/domain'
 
 @Controller('orders')
 export class OrdersController {
-  async create(@Body() dto: unknown) {
+  @Post()
+  async create(@Body() dto: CreateOrderDTO) {
     // const response = await this.commandbus.dispatch(CreateTransaction.with(dto))
 
     // if (response.isOk)
+    console.log(dto)
     return {
       statusCode: HttpStatus.CREATED,
-      status: 'Transaction created successfully',
+      status: 'Order created successfully',
+      data: { id: dto.id },
     }
   }
 }
