@@ -7,7 +7,8 @@ import { firstValueFrom } from 'rxjs'
 @Controller('orders')
 export class OrdersController {
   constructor(
-    @Inject(Queue.BILLING) private readonly billingClient: ClientProxy
+    @Inject(Queue.BILLING) private readonly billingClient: ClientProxy,
+    @Inject(Queue.LOGISTICS) private readonly logisticsClient: ClientProxy
   ) {}
   @Post()
   async create(@Body() dto: CreateOrderDTO) {
@@ -16,11 +17,14 @@ export class OrdersController {
     // if (response.isOk) {}
 
     console.log(dto)
-    const response = await firstValueFrom(
+    const billingResponse = await firstValueFrom(
       this.billingClient.emit('ecommerce.checkout.orders.order_created', dto)
     )
+    const logisticsResponse = await firstValueFrom(
+      this.logisticsClient.emit('ecommerce.checkout.orders.order_created', dto)
+    )
 
-    console.log({ response })
+    console.log({ billingResponse, logisticsResponse })
 
     return {
       statusCode: HttpStatus.CREATED,

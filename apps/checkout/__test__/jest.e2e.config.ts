@@ -1,6 +1,6 @@
 /* eslint-disable */
 export default {
-  displayName: 'orders',
+  displayName: 'checkout',
   preset: '../../../jest.preset.js',
   globals: {
     'ts-jest': {

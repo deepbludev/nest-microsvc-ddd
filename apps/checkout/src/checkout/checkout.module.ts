@@ -18,4 +18,4 @@ import { StatusController } from './controllers/status.controller'
   ],
   controllers: [StatusController],
 })
-export class AppModule {}
+export class CheckoutBoundedContext {}

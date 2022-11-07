@@ -1,7 +1,7 @@
 import supertest from 'supertest'
 import { INestApplication } from '@nestjs/common'
 import { Test, TestingModule } from '@nestjs/testing'
-import { AppModule } from '../../src/app/app.module'
+import { CheckoutBoundedContext } from '../../src/checkout/checkout.module'
 import { TestLogger } from './test-logger'
 
 export class TestEnvironment {
@@ -12,7 +12,7 @@ export class TestEnvironment {
 
   static async init() {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [AppModule],
+      imports: [CheckoutBoundedContext],
     }).compile()
 
     const app = module.createNestApplication()
