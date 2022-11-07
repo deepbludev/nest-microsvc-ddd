@@ -3,6 +3,7 @@
   "version": 2,
   "projects": {
     "checkout": "apps/checkout",
-    "contexts-checkout-orders-domain": "libs/contexts/checkout/orders/domain"
+    "contexts-checkout-orders-domain": "libs/contexts/checkout/orders/domain",
+    "contexts-shared-infrastructure": "libs/contexts/shared/infrastructure"
   }
 }

@@ -18,7 +18,8 @@
     "paths": {
       "@ecommerce/checkout/orders/domain": [
         "libs/contexts/checkout/orders/domain/src/index.ts"
-      ]
+      ],
+      "@ecommerce/shared": ["libs/contexts/shared/infrastructure/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
