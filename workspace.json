@@ -2,6 +2,7 @@
   "$schema": "./node_modules/nx/schemas/workspace-schema.json",
   "version": 2,
   "projects": {
+    "billing": "apps/billing",
     "checkout": "apps/checkout",
     "contexts-checkout-orders-domain": "libs/contexts/checkout/orders/domain",
     "contexts-shared-infrastructure": "libs/contexts/shared/infrastructure"

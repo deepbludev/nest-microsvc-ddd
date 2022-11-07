@@ -1,7 +1,7 @@
 import { Logger } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 import { NestFactory } from '@nestjs/core'
-import { CheckoutBoundedContext } from './checkout/checkout.module'
+import { CheckoutBoundedContext } from './bounded-context/checkout.module'
 
 async function bootstrap() {
   const checkout = await NestFactory.create(CheckoutBoundedContext)

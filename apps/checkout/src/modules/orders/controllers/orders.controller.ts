@@ -2,7 +2,6 @@ import { Body, Controller, HttpStatus, Inject, Post } from '@nestjs/common'
 import { ClientProxy } from '@nestjs/microservices'
 import { CreateOrderDTO } from '@ecommerce/checkout/orders/domain'
 import { Queue } from '@ecommerce/shared/infrastructure'
-import { firstValueFrom } from 'rxjs'
 
 @Controller('orders')
 export class OrdersController {
@@ -16,15 +15,10 @@ export class OrdersController {
     // const response = await this.commandbus.dispatch(CreateTransaction.with(dto))
     // if (response.isOk) {}
 
-    console.log(dto)
-    const billingResponse = await firstValueFrom(
-      this.billingClient.emit('ecommerce.checkout.orders.order_created', dto)
-    )
-    const logisticsResponse = await firstValueFrom(
-      this.logisticsClient.emit('ecommerce.checkout.orders.order_created', dto)
-    )
-
-    console.log({ billingResponse, logisticsResponse })
+    const clients = [this.billingClient]
+    clients.map(client => {
+      client.emit('ecommerce.checkout.orders.order_created', dto)
+    })
 
     return {
       statusCode: HttpStatus.CREATED,

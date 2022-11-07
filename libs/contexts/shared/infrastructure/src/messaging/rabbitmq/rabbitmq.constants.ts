@@ -1,4 +1,5 @@
 export enum Queue {
+  CHECKOUT = 'CHECKOUT',
   BILLING = 'BILLING',
   LOGISTICS = 'LOGISTICS',
 }

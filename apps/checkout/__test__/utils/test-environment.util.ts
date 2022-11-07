@@ -1,7 +1,7 @@
 import supertest from 'supertest'
 import { INestApplication } from '@nestjs/common'
 import { Test, TestingModule } from '@nestjs/testing'
-import { CheckoutBoundedContext } from '../../src/checkout/checkout.module'
+import { CheckoutBoundedContext } from '../../src/bounded-context/checkout.module'
 import { TestLogger } from './test-logger'
 
 export class TestEnvironment {

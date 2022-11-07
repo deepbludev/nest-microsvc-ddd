@@ -6,7 +6,9 @@ import { OrdersController } from './controllers/orders.controller'
 @Module({
   imports: [
     ConfigModule,
-    RmqModule.register({ names: [Queue.BILLING, Queue.LOGISTICS] }),
+    RmqModule.register({
+      names: [Queue.CHECKOUT, Queue.BILLING, Queue.LOGISTICS],
+    }),
   ],
   controllers: [OrdersController],
 })
