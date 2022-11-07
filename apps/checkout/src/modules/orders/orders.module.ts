@@ -8,8 +8,11 @@ import { CreateOrderHandler } from './commands/create-order/create-order.handler
   imports: [
     ConfigModule,
     CqrsModule.register({
-      imports: [RmqModule.register({ names: [Queue.BILLING] })],
+      imports: [
+        RmqModule.register({ names: [Queue.BILLING, Queue.LOGISTICS] }),
+      ],
       commandHandlers: [CreateOrderHandler],
+      // queryHandlers: [],
       // eventSubscribers: [],
     }),
     RmqModule.register({

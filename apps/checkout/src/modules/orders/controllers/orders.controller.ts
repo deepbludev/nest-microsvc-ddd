@@ -1,5 +1,4 @@
-import { Body, Controller, HttpStatus, Inject, Post } from '@nestjs/common'
-import { ClientProxy } from '@nestjs/microservices'
+import { Body, Controller, HttpStatus, Post } from '@nestjs/common'
 import { ICommandBus } from '@deepblu/ddd'
 import { CreateOrderDTO } from '@ecommerce/checkout/orders/domain'
 import { CreateOrder } from '../commands/create-order.command'
