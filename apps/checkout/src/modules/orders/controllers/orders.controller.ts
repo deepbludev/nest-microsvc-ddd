@@ -5,6 +5,9 @@ import { CreateOrderDTO } from '@ecommerce/checkout/orders/domain'
 export class OrdersController {
   @Post()
   async create(@Body() dto: CreateOrderDTO) {
+    // TODO: validate dto with pipe
+    // TODO: send command to commandbus
+
     // const response = await this.commandbus.dispatch(CreateTransaction.with(dto))
 
     // if (response.isOk)
