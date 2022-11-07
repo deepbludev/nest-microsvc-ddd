@@ -14,15 +14,6 @@ services:
     volumes:
       - .:/workspace
 
-  nginx:
-    restart: always
-    build:
-      context: ./.nginx
-    ports:
-      - 80:80
-    depends_on:
-      - rabbitmq
-      - checkout
   rabbitmq:
     container_name: rabbitmq
     image: rabbitmq:3.8-management-alpine
@@ -32,3 +23,13 @@ services:
     ports:
       - 5672:5672
       - 15672:15672
+
+  nginx:
+    restart: always
+    build:
+      context: ./.nginx
+    ports:
+      - 80:80
+    depends_on:
+      - rabbitmq
+      - checkout
