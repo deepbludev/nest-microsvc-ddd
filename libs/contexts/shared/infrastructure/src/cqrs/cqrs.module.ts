@@ -56,22 +56,22 @@ const eventProviders = (
 
 interface CqrsModuleOptions {
   imports?: (Type | DynamicModule | Promise<DynamicModule> | ForwardReference)[]
-  commandHandlers: Type<ICommandHandler>[]
+  commandHandlers?: Type<ICommandHandler>[]
   useCommandBusClass?: Type<ICommandBus>
-  queryHandlers: Type<IQueryHandler>[]
+  queryHandlers?: Type<IQueryHandler>[]
   useQueryBusClass?: Type<IQueryBus>
-  eventSubscribers: Type<IEventSubscriber>[]
+  eventSubscribers?: Type<IEventSubscriber>[]
   useEventBusClass?: Type<IEventBus>
 }
 
 export class CqrsModule {
   static forRoot({
     imports,
-    commandHandlers,
+    commandHandlers = [],
     useCommandBusClass = CommandBus,
-    queryHandlers,
+    queryHandlers = [],
     useQueryBusClass = QueryBus,
-    eventSubscribers,
+    eventSubscribers = [],
     useEventBusClass = EventBus,
   }: CqrsModuleOptions): DynamicModule {
     const providers = []

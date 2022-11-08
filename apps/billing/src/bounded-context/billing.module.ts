@@ -1,18 +1,9 @@
-import * as j from 'joi'
 import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
 import { BillsModule } from '../modules/bills/bills.module'
+import { config } from './config'
 
 @Module({
-  imports: [
-    BillsModule,
-    ConfigModule.forRoot({
-      isGlobal: true,
-      validationSchema: j.object({
-        MONGODB_URI: j.string().required(),
-      }),
-      envFilePath: './apps/billing/.env',
-    }),
-  ],
+  imports: [BillsModule, ConfigModule.forRoot(config)],
 })
 export class BillingBoundedContext {}
