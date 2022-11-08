@@ -2,14 +2,11 @@ import { Body, Controller, HttpStatus, Post } from '@nestjs/common'
 import { ICommandBus } from '@deepblu/ddd'
 import { CreateOrderDTO } from '@ecommerce/checkout/orders/domain'
 import { CreateOrder } from '../commands/create-order/create-order.command'
-import { RmqService } from '@ecommerce/shared/infrastructure'
 
 @Controller('orders')
 export class OrdersController {
-  constructor(
-    private readonly commandbus: ICommandBus,
-    private readonly rmqService: RmqService
-  ) {}
+  constructor(private readonly commandbus: ICommandBus) {}
+
   @Post()
   async create(@Body() dto: CreateOrderDTO) {
     const response = await this.commandbus.dispatch(CreateOrder.with(dto))

@@ -3,6 +3,8 @@ import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
 import { OrdersModule } from '../modules/orders/orders.module'
 import { StatusController } from './controllers/status.controller'
+import { CqrsModule, Queue, RmqModule } from '@ecommerce/shared/infrastructure'
+import { ordersCommandHandlers } from '../modules/orders/commands/orders.command-handlers'
 
 @Module({
   imports: [
@@ -14,6 +16,14 @@ import { StatusController } from './controllers/status.controller'
         PORT: j.number().required(),
       }),
       envFilePath: './apps/checkout/.env',
+    }),
+    CqrsModule.register({
+      commandHandlers: [...ordersCommandHandlers],
+      queryHandlers: [],
+      eventSubscribers: [],
+    }),
+    RmqModule.register({
+      names: [Queue.BILLING, Queue.LOGISTICS],
     }),
   ],
   controllers: [StatusController],

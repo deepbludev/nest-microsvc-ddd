@@ -1,75 +1,103 @@
-import { DynamicModule, ForwardReference, Module, Type } from '@nestjs/common'
+import { DynamicModule, ForwardReference, Type } from '@nestjs/common'
 import {
   ICommandBus,
   ICommandHandler,
-  // IEventBus,
-  // IEventSubscriber,
-  // IQueryBus,
-  // IQueryHandler,
+  IEventBus,
+  IEventSubscriber,
+  IQueryBus,
+  IQueryHandler,
 } from '@deepblu/ddd'
 import { CommandBus } from './commandbus'
-// import { QueryBus } from './querybus'
-// import { EventBus } from './eventbus'
-
-interface CqrsModuleOptions {
-  imports: (Type | DynamicModule | Promise<DynamicModule> | ForwardReference)[]
-  commandHandlers: Type<ICommandHandler>[]
-  // queryHandlers: Type<IQueryHandler>[]
-  // eventSubscribers: Type<IEventSubscriber>[]
-}
+import { QueryBus } from './querybus'
+import { EventBus } from './eventbus'
 
 export const COMMAND_HANDLERS = 'COMMAND_HANDLERS'
 export const QUERY_HANDLERS = 'QUERY_HANDLERS'
 export const EVENT_SUBSCRIBERS = 'EVENT_SUBSCRIBERS'
 
-const commandProvider = commandHandlers => [
+const commandProviders = (
+  commandHandlers,
+  useCommandBusClass: Type<ICommandBus> = CommandBus
+) => [
   ...commandHandlers,
   {
     provide: COMMAND_HANDLERS,
     useFactory: (...handlers: ICommandHandler[]) => handlers,
     inject: commandHandlers,
   },
-  { provide: ICommandBus, useClass: CommandBus },
+  { provide: ICommandBus, useClass: useCommandBusClass },
 ]
 
-// const queryProvider = queryHandlers => [
-//   ...queryHandlers,
-//   {
-//     provide: QUERY_HANDLERS,
-//     useFactory: (...handlers: IQueryHandler[]) => handlers,
-//     inject: queryHandlers,
-//   },
-//   { provide: IQueryBus, useClass: QueryBus },
-// ]
+const queryProviders = (
+  queryHandlers,
+  useQueryBusClass: Type<IQueryBus> = QueryBus
+) => [
+  ...queryHandlers,
+  {
+    provide: QUERY_HANDLERS,
+    useFactory: (...handlers: IQueryHandler[]) => handlers,
+    inject: queryHandlers,
+  },
+  { provide: IQueryBus, useClass: useQueryBusClass },
+]
 
-// const eventProvider = eventSubscribers => [
-//   ...eventSubscribers,
-//   {
-//     provide: EVENT_SUBSCRIBERS,
-//     useFactory: (...subscribers: IEventSubscriber[]) => subscribers,
-//     inject: eventSubscribers,
-//   },
-//   { provide: IEventBus, useClass: EventBus },
-// ]
+const eventProviders = (
+  eventSubscribers,
+  useEventBusClass: Type<IEventBus> = EventBus
+) => [
+  ...eventSubscribers,
+  {
+    provide: EVENT_SUBSCRIBERS,
+    useFactory: (...subscribers: IEventSubscriber[]) => subscribers,
+    inject: eventSubscribers,
+  },
+  { provide: IEventBus, useClass: useEventBusClass },
+]
 
-@Module({})
+interface CqrsModuleOptions {
+  imports?: (Type | DynamicModule | Promise<DynamicModule> | ForwardReference)[]
+  commandHandlers: Type<ICommandHandler>[]
+  useCommandBusClass?: Type<ICommandBus>
+  queryHandlers: Type<IQueryHandler>[]
+  useQueryBusClass?: Type<IQueryBus>
+  eventSubscribers: Type<IEventSubscriber>[]
+  useEventBusClass?: Type<IEventBus>
+}
+
 export class CqrsModule {
   static register({
     imports,
     commandHandlers,
-  }: // queryHandlers,
-  // eventSubscribers,
-  CqrsModuleOptions): DynamicModule {
+    useCommandBusClass = CommandBus,
+    queryHandlers,
+    useQueryBusClass = QueryBus,
+    eventSubscribers,
+    useEventBusClass = EventBus,
+  }: CqrsModuleOptions): DynamicModule {
     const providers = []
-    providers.push(...commandProvider(commandHandlers))
-    // providers.push(...queryProvider(queryHandlers))
-    // providers.push(...eventProvider(eventSubscribers))
+    const exports = []
+
+    if (commandHandlers?.length) {
+      providers.push(...commandProviders(commandHandlers, useCommandBusClass))
+      exports.push(ICommandBus)
+    }
+
+    if (queryHandlers?.length) {
+      providers.push(...queryProviders(queryHandlers, useQueryBusClass))
+      exports.push(IQueryBus)
+    }
+
+    if (eventSubscribers?.length) {
+      providers.push(...eventProviders(eventSubscribers, useEventBusClass))
+      exports.push(IEventBus)
+    }
 
     return {
       module: CqrsModule,
+      global: true,
       imports,
       providers,
-      exports: [ICommandBus], //, IEventBus, IQueryBus],
+      exports,
     }
   }
 }

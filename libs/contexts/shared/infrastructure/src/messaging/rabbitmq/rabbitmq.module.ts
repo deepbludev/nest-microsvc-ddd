@@ -15,6 +15,7 @@ export class RmqModule {
   static register({ names }: RmqModuleOptions): DynamicModule {
     return {
       module: RmqModule,
+      global: true,
       imports: [
         ClientsModule.registerAsync(
           names.map(name => ({

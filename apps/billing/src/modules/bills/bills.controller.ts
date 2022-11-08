@@ -7,13 +7,14 @@ import { CreateOrderDTO } from '@ecommerce/checkout/orders/domain'
 export class BillsController {
   constructor(private readonly rmqService: RmqService) {}
 
-  @EventPattern('ecommerce.checkout.orders.order_created')
+  @EventPattern('checkout.orders.order_created')
   async handleOrderCreated(
     @Payload() order: CreateOrderDTO,
     @Ctx() context: RmqContext
   ) {
     console.log('RECEIVED in billing: ', {
       event: context.getPattern(),
+      order: order.id,
     })
     this.rmqService.ack(context)
   }

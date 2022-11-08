@@ -3,10 +3,10 @@ import { Queue, RmqService } from '@ecommerce/shared/infrastructure'
 import { BillingBoundedContext } from './bounded-context/billing.module'
 
 async function bootstrap() {
-  const app = await NestFactory.create(BillingBoundedContext)
-  const rmqService = app.get<RmqService>(RmqService)
-  app.connectMicroservice(rmqService.getOptions(Queue.CHECKOUT))
-  await app.startAllMicroservices()
+  const billing = await NestFactory.create(BillingBoundedContext)
+
+  billing.connectMicroservice(billing.get(RmqService).connect(Queue.BILLING))
+  await billing.startAllMicroservices()
 }
 
 bootstrap()
