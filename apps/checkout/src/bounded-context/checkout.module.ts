@@ -17,12 +17,12 @@ import { ordersCommandHandlers } from '../modules/orders/commands/orders.command
       }),
       envFilePath: './apps/checkout/.env',
     }),
-    CqrsModule.register({
+    CqrsModule.forRoot({
       commandHandlers: [...ordersCommandHandlers],
       queryHandlers: [],
       eventSubscribers: [],
     }),
-    RmqModule.register({
+    RmqModule.forRoot({
       names: [Queue.BILLING, Queue.LOGISTICS],
     }),
   ],

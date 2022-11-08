@@ -65,7 +65,7 @@ interface CqrsModuleOptions {
 }
 
 export class CqrsModule {
-  static register({
+  static forRoot({
     imports,
     commandHandlers,
     useCommandBusClass = CommandBus,
