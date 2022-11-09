@@ -4,7 +4,7 @@ import { ClientsModule, Transport } from '@nestjs/microservices'
 import { RmqService } from './rabbitmq.service'
 
 interface RmqModuleOptions {
-  names: string[]
+  queues: string[]
 }
 
 @Global()
@@ -13,19 +13,19 @@ interface RmqModuleOptions {
   exports: [RmqService],
 })
 export class RmqModule {
-  static forRoot({ names }: RmqModuleOptions): DynamicModule {
+  static forRoot({ queues }: RmqModuleOptions): DynamicModule {
     return {
       module: RmqModule,
       global: true,
       imports: [
         ClientsModule.registerAsync(
-          names.map(name => ({
-            name,
+          queues.map(queue => ({
+            name: queue,
             useFactory: (configService: ConfigService) => ({
               transport: Transport.RMQ,
               options: {
                 urls: [configService.get<string>('RABBITMQ_URI')],
-                queue: configService.get<string>(`RABBITMQ_QUEUE_${name}`),
+                queue: configService.get<string>(`RABBITMQ_QUEUE_${queue}`),
               },
             }),
             inject: [ConfigService],

@@ -16,7 +16,7 @@ import { config } from './config'
       eventSubscribers: [],
     }),
     RmqModule.forRoot({
-      names: [Queue.BILLING, Queue.LOGISTICS],
+      queues: [Queue.BILLING, Queue.LOGISTICS],
     }),
   ],
   controllers: [StatusController],
